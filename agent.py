@@ -37,4 +37,4 @@ Current question: {question}
         model=st.secrets["AZURE_OPENAI_DEPLOYMENT"],
         messages=[{"role": "user", "content": prompt}]
     )
-    return response.choices[0].message.content
+    return response.choices[0].message.contentscm-history-item:c%3A%5CUsers%5Camarsingh%5Csource%5Crepos%5CMyProjects%5CAIUpskill%5Cdocument-ai-agent?%7B%22repositoryId%22%3A%22scm0%22%2C%22historyItemId%22%3A%22b4570c605fa26b8952eda104dd17a40f3cc8c84b%22%2C%22historyItemParentId%22%3A%22009ee99c78916c8f937bc035fa5b6a9e85172d30%22%2C%22historyItemDisplayId%22%3A%22b4570c6%22%7D
