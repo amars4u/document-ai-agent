@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "document-ai-agent",
+			"path": "document-ai-agent"
+		}
+	],
+	"settings": {}
+}
