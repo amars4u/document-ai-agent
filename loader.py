@@ -44,3 +44,52 @@ def load_documents(folder="docs"):
                     all_text += f"- {text}\n"
 
     return all_text
+
+
+def load_and_chunk_documents(folder="docs", chunk_size=1000, chunk_overlap=200):
+    chunks = []
+    for filename in sorted(os.listdir(folder)):
+        if not filename.endswith(".docx"):
+            continue
+        path = os.path.join(folder, filename)
+        try:
+            doc = Document(path)
+        except Exception:
+            continue
+
+        current_section = "General"
+        current_text = ""
+
+        for para in doc.paragraphs:
+            text = para.text.strip()
+            if not text:
+                continue
+
+            level = get_outline_level(para)
+            if level is not None:
+                if current_text.strip():
+                    chunks.append({
+                        "text": current_text.strip(),
+                        "source": filename,
+                        "section": current_section,
+                    })
+                current_section = text
+                current_text = ""
+            else:
+                current_text += text + "\n"
+                if len(current_text) >= chunk_size:
+                    chunks.append({
+                        "text": current_text.strip(),
+                        "source": filename,
+                        "section": current_section,
+                    })
+                    current_text = current_text[-chunk_overlap:]
+
+        if current_text.strip():
+            chunks.append({
+                "text": current_text.strip(),
+                "source": filename,
+                "section": current_section,
+            })
+
+    return chunks
